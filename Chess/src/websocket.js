@@ -63,24 +63,20 @@ export const initializeGame = (playerASetup, playerBSetup) => {
   }
 };
 
-// Add this function to check connection status
 export const isConnected = () => connectionEstablished;
 
 // Handle server messages
 function handleServerMessage(message) {
   switch (message.type) {
     case "gameStateUpdate":
-      // Update the game state with the latest data from the server
       updateGameState(message.payload);
       break;
 
     case "invalidMove":
-      // Handle invalid move notification
       alert(`Invalid move: ${message.payload}`);
       break;
 
     case "gameOver":
-      // Handle game over notification
       alert(`Game over! Winner: ${message.payload.winner}`);
       resetGame();
       break;
@@ -91,7 +87,7 @@ function handleServerMessage(message) {
   }
 }
 
-// Update the game state (to be handled within your React component)
+// Update the game state
 function updateGameState(newState) {
   if (setBoard && setCurrentTurn) {
     setBoard(newState.board);
@@ -101,7 +97,7 @@ function updateGameState(newState) {
   }
 }
 
-// Reset the game state (to be handled within your React component)
+// Reset the game state
 function resetGame() {
   if (setBoard && setCurrentTurn) {
     setBoard(Array(5).fill(Array(5).fill(null)));

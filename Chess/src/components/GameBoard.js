@@ -25,9 +25,7 @@ const GameBoard = () => {
         console.error("Failed to connect to WebSocket:", error);
       });
 
-    return () => {
-      // Clean up WebSocket connection
-    };
+    return
   }, []);
   // Function to handle game state updates
   const handleGameStateUpdate = (newState) => {
@@ -57,28 +55,23 @@ const GameBoard = () => {
     const moveDirection = calculateMoveDirection(row, col);
     if (moveDirection) {
       const move = {
-        character: selectedCharacter, // The character selected by the player
-        move: moveDirection, // Calculate move direction based on board position
+        character: selectedCharacter,
+        move: moveDirection,
       };
-
-      // Send move command to the server using websocket.js function
       sendMove(move);
     } else {
       console.error("Invalid move direction.");
     }
   };
 
-  // Helper function to calculate move direction based on the selected character's current position
   const calculateMoveDirection = (row, col) => {
     if (!selectedCharacter || !selectedCharacterPosition) return null;
 
     const { row: currentRow, col: currentCol } = selectedCharacterPosition;
 
-    // Determine the direction of movement based on the row and column difference
     const rowDiff = row - currentRow;
     const colDiff = col - currentCol;
 
-    // For Pawn and Hero1 (moving in straight directions)
     if (
       selectedCharacter.type === "Pawn" ||
       selectedCharacter.type === "Hero1"
